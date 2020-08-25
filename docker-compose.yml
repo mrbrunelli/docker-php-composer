@@ -1,0 +1,42 @@
+version: "3.1"
+
+services:
+    php:
+        build:
+            context: ./docker/php # Indica onde está o arquivo Dockerfile
+            dockerfile: Dockerfile
+        container_name: alfa-php # Apelido para o container
+        volumes:
+            - ./src:/var/www/html/ # Irá copiar o conteúdo da pasta src para o container
+        ports: # Mapear as portas para ficarem visiveis na máquina host
+            - "80:80"
+            - "443:443"
+        links: # Criar conexão com o container do banco de dados
+            - mysql
+
+    phpmyadmin:
+        build:
+            context: ./docker/phpmyadmin
+            dockerfile: Dockerfile
+        container_name: alfa-phpmyadmin
+        restart: always
+        volumes:
+            - /sessions
+        ports:
+            - "8080:80"
+        links:
+            - mysql
+        environment:
+            - PMA_ARBITRARY=1 # Habilitando a opção para inserir host no login
+
+    mysql:
+        image: mysql:5.7 # A versão 8.0 está com instabilidades
+        container_name: alfa-mysql
+        restart: always # Por padrão o Docker não reinicia o container, vamos mudar isso.
+        volumes:
+            - /var/lib/mysql
+        ports:
+            - "3306:3306" # Mapeei a porta para funcionar no Dbeaver, mas não precisaria.
+        environment:
+            - MYSQL_ROOT_PASSWORD=root # Definir senha do usuário root
+            - MYSQL_DATABASE=aula # Iniciar o container com um banco criado
