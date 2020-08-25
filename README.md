@@ -17,6 +17,7 @@ $ docker-compose up -d
 ```bash
 $ docker container exec -it alfa-php bash
 $ composer init
+$ composer install # Caso já tenha dependencias no composer.json
 ```
 > A pasta *src* está mapeada com o container. Todo o conteúdo referente ao *PHP* deve estar dentro dessa pasta, pois o *Apache* irá buscar nela.
 ### Importante
