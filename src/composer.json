@@ -1,0 +1,11 @@
+{
+    "name": "alfa/composer",
+    "description": "Aula sobre composer",
+    "authors": [
+        {
+            "name": "Matheus",
+            "email": "matheus.brunelli@gmail.com"
+        }
+    ],
+    "require": {}
+}
